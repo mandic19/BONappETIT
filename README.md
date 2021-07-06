@@ -1,2 +1,2 @@
 # BONappETIT
-Restourant Management - Java
+Restaurant Management - Java
