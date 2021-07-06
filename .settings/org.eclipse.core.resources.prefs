@@ -1,0 +1,12 @@
+eclipse.preferences.version=1
+encoding//src/controller/MenadzerZakupSaleController.java=UTF-8
+encoding//src/controller/centralFormController.java=UTF-8
+encoding//src/controller/menuBarController.java=UTF-8
+encoding//src/controller/reportsController.java=UTF-8
+encoding//src/model/MenadzerZakupSaleModel.java=UTF-8
+encoding//src/model/cjenovnikModel.java=UTF-8
+encoding//src/model/kadrovskaModel.java=UTF-8
+encoding//src/model/tableModel.java=UTF-8
+encoding//src/view/centralFormView.java=UTF-8
+encoding//src/view/cjenovnikView.java=UTF-8
+encoding//src/view/reportsView.java=UTF-8

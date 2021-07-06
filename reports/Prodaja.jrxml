@@ -1,0 +1,381 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.9.0.final using JasperReports Library version 6.9.0-cb8f9004be492ccc537180b49c026951f4220bf3  -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="ProdatiArtikli" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="871b1d43-b21c-420f-94ba-5e75da1ee61a">
+	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="bonappetitAdapter.xml"/>
+	<property name="com.jaspersoft.studio.data.sql.SQLQueryDesigner.sash.w1" value="468"/>
+	<property name="com.jaspersoft.studio.data.sql.SQLQueryDesigner.sash.w2" value="521"/>
+	<parameter name="NazivRes" class="java.lang.String"/>
+	<parameter name="AdresaRes" class="java.lang.String"/>
+	<parameter name="EmailRes" class="java.lang.String"/>
+	<parameter name="TelRes" class="java.lang.String"/>
+	<parameter name="JIB" class="java.lang.String"/>
+	<parameter name="TipPosSis" class="java.lang.String"/>
+	<parameter name="OrgJed" class="java.lang.Integer"/>
+	<parameter name="DrzOzn" class="java.lang.String"/>
+	<parameter name="Od" class="java.util.Date"/>
+	<parameter name="Do" class="java.util.Date"/>
+	<queryString language="SQL">
+		<![CDATA[SELECT c."CIJ_OZNAKA",
+	c."CIJ_NAZIV",
+	SUM( s."AIM_KOLICINA") as "Kolicina",
+	c."CIJ_CIJENA" * SUM( s."AIM_KOLICINA") as "Iznos",
+	c."CIJ_CIJENA"
+FROM "CIJENOVNIK" c
+	join "SADRZI_ARTIKAL_IZ_MENI_A" s ON 
+	 c."CIJ_OZNAKA" = s."CIJ_OZNAKA" 
+	 AND c."PS_JIB" = s."PS_JIB" 
+	 AND c."OJ_OZNAKA" = s."OJ_OZNAKA" 
+	 AND c."DR_OZNAKA" = s."DR_OZNAKA" 
+	 AND c."TPS_OZNAKA" = s."TPS_OZNAKA" 
+	 AND c."TM_OZNAKA" = s."TM_OZNAKA" 
+	join "NARUDZBA" n ON 
+	 n."NAR_OZNAKA" = s."NAR_OZNAKA" 
+WHERE 
+	 c."PS_JIB" = $P{JIB} 
+	 AND c."OJ_OZNAKA" = $P{OrgJed} 
+	 AND c."DR_OZNAKA" = $P{DrzOzn} 
+	 AND c."TPS_OZNAKA" = $P{TipPosSis} 
+	 AND n."NAR_DATUM_I_VRIJEME" >= $P{Od} 
+	 AND n."NAR_DATUM_I_VRIJEME" <= $P{Do} 
+GROUP BY c."CIJ_NAZIV",
+	c."OJ_OZNAKA",
+	c."DR_OZNAKA",
+	c."TPS_OZNAKA",
+	c."PS_JIB",
+	c."TM_OZNAKA",
+	c."CIJ_OZNAKA",
+	c."CIJ_CIJENA"]]>
+	</queryString>
+	<field name="CIJ_OZNAKA" class="java.lang.Integer">
+		<property name="com.jaspersoft.studio.field.label" value="CIJ_OZNAKA"/>
+	</field>
+	<field name="CIJ_NAZIV" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="CIJ_NAZIV"/>
+	</field>
+	<field name="Kolicina" class="java.lang.Integer">
+		<property name="com.jaspersoft.studio.field.label" value="Kolicina"/>
+	</field>
+	<field name="Iznos" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.label" value="Iznos"/>
+	</field>
+	<field name="CIJ_CIJENA" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.label" value="CIJ_CIJENA"/>
+	</field>
+	<variable name="Zarada" class="java.math.BigDecimal" resetType="Column" calculation="Sum">
+		<variableExpression><![CDATA[$F{Iznos}]]></variableExpression>
+		<initialValueExpression><![CDATA[new Integer(0)]]></initialValueExpression>
+	</variable>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="607" splitType="Stretch">
+			<staticText>
+				<reportElement x="12" y="45" width="546" height="52" uuid="6c81554f-d032-4cf8-8523-2bf6aadae047"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="25"/>
+				</textElement>
+				<text><![CDATA[Izvještaj BONappETIT - Prodaja artikala]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="45" y="295" width="500" height="30" uuid="f69ac78f-fc55-449a-aae3-4ab0e45f2906"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="24" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{NazivRes}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="134" y="337" width="320" height="30" uuid="ca9443be-f7a6-44d4-aed0-332bc4816ebe"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="20" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{AdresaRes}]]></textFieldExpression>
+			</textField>
+			<textField evaluationTime="Auto">
+				<reportElement stretchType="RelativeToTallestObject" x="263" y="545" width="170" height="20" uuid="b006ee2f-e1af-4440-80f9-4ddc9bd5c060"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="12" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{EmailRes}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement stretchType="RelativeToTallestObject" x="223" y="545" width="40" height="20" uuid="e0b64724-201c-46c6-981a-3f19af2f33a3"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle"/>
+				<text><![CDATA[e-mail: ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement stretchType="RelativeToTallestObject" x="223" y="575" width="40" height="20" uuid="e0b097cd-c06d-40cb-a603-2ed5ed51d68e"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle"/>
+				<text><![CDATA[tel.: ]]></text>
+			</staticText>
+			<textField>
+				<reportElement stretchType="RelativeToTallestObject" x="263" y="575" width="170" height="20" uuid="56d59b89-1551-4b36-9d8e-f8f8e6ae3a37"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="12" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{TelRes}]]></textFieldExpression>
+			</textField>
+			<break>
+				<reportElement x="0" y="605" width="550" height="1" uuid="833b4579-02a4-4791-ae89-5ec413812d96"/>
+			</break>
+			<textField>
+				<reportElement x="185" y="15" width="100" height="20" uuid="801f7e65-26b4-4bf1-ba06-30138603e0d2"/>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression><![CDATA[$V{PAGE_NUMBER}+""]]></textFieldExpression>
+			</textField>
+			<textField evaluationTime="Report">
+				<reportElement x="285" y="15" width="100" height="20" uuid="d6944aff-1136-46d0-913b-80f9607af9b5"/>
+				<textElement textAlignment="Left"/>
+				<textFieldExpression><![CDATA[" od " + $V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+			<textField pattern="dd/MM/yyyy HH:mm:ss">
+				<reportElement x="458" y="15" width="100" height="20" uuid="dba20817-012f-4ef3-9067-824051da3cc1"/>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="41" splitType="Stretch">
+			<staticText>
+				<reportElement x="20" y="0" width="264" height="30" backcolor="#FFFFFF" uuid="ea635407-05e6-4f2b-add5-22b199ea1f50"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="16"/>
+				</textElement>
+				<text><![CDATA[Spisak prodatih artikala u periodu od]]></text>
+			</staticText>
+			<textField pattern="dd/MM/yyyy">
+				<reportElement x="287" y="7" width="107" height="19" uuid="b9c5368c-a29a-4c2f-bba9-287fbc6e56c2"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="14" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{Od}]]></textFieldExpression>
+			</textField>
+			<textField pattern="dd/MM/yyyy">
+				<reportElement x="438" y="7" width="107" height="19" uuid="cae934de-70e2-49b1-bc4d-c9f8768a51ee"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="14" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{Do}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="400" y="7" width="30" height="19" uuid="6692eb39-e9bf-496d-a439-3da3c27ccb51"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="16"/>
+				</textElement>
+				<text><![CDATA[do]]></text>
+			</staticText>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band height="50" splitType="Stretch">
+			<staticText>
+				<reportElement x="25" y="15" width="40" height="30" backcolor="#CFCFCF" uuid="507ca248-7d47-46a8-b181-7943e8af71ce"/>
+				<box>
+					<pen lineColor="#839EC9"/>
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#839EC9"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#839EC9"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#839EC9"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#839EC9"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="15" isBold="true"/>
+				</textElement>
+				<text><![CDATA[#]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="134" y="15" width="174" height="30" backcolor="#CFCFCF" uuid="dc2ea77e-493a-48aa-8945-ab6fb5093ee8"/>
+				<box>
+					<pen lineColor="#839EC9"/>
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#839EC9"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#839EC9"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#839EC9"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#839EC9"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="15" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Naziv artikla]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="379" y="15" width="100" height="30" backcolor="#CFCFCF" uuid="2d88f8f3-0eef-44ee-9f25-0ec83a55b6e2"/>
+				<box>
+					<pen lineColor="#839EC9"/>
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#839EC9"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#839EC9"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#839EC9"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#839EC9"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="15" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Količina]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="479" y="15" width="71" height="30" backcolor="#CFCFCF" uuid="b365af58-9194-4bd9-a5fc-447d9032293f"/>
+				<box>
+					<pen lineColor="#839EC9"/>
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#839EC9"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#839EC9"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#839EC9"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#839EC9"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="15" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Cijena]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="65" y="15" width="69" height="30" backcolor="#CFCFCF" uuid="505a47e7-5199-4f29-aa7c-fb7fb98a72d5"/>
+				<box>
+					<pen lineColor="#839EC9"/>
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#839EC9"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#839EC9"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#839EC9"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#839EC9"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="15" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Oznaka]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="308" y="15" width="71" height="30" backcolor="#CFCFCF" uuid="6b68da65-3815-43f5-aef6-abbb440f7829"/>
+				<box>
+					<pen lineColor="#839EC9"/>
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#839EC9"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#839EC9"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#839EC9"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#839EC9"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Cijena 
+/ kom.]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="30" splitType="Stretch">
+			<textField>
+				<reportElement x="65" y="0" width="69" height="30" uuid="33f81e39-3932-4d24-b52c-c74f929603e0">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="088c08ec-02f0-4a74-81b4-366f6c5a5827"/>
+				</reportElement>
+				<box>
+					<pen lineWidth="0.5" lineStyle="Solid" lineColor="#A561CF"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{CIJ_OZNAKA}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="134" y="0" width="174" height="30" uuid="4dcc6580-62da-4df8-8a24-71ce64e7e02b">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="a00c1215-1f28-4f29-a1d0-6701c7bf332e"/>
+					<property name="com.jaspersoft.studio.unit.leftIndent" value="px"/>
+				</reportElement>
+				<box>
+					<pen lineWidth="0.5" lineStyle="Solid" lineColor="#A561CF"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<paragraph leftIndent="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{CIJ_NAZIV}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="378" y="0" width="101" height="30" uuid="72252857-c312-4287-88b1-b4b3a55a4463">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="b396753a-7a4e-4637-9dd5-384f1b0e36a4"/>
+				</reportElement>
+				<box>
+					<pen lineWidth="0.5" lineStyle="Solid" lineColor="#A561CF"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{Kolicina}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="479" y="0" width="70" height="30" uuid="c7f30d96-9d3d-46ca-b6a4-f80bbec2e2f4">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="e8449b0f-4ef5-451c-8f1b-34b0e746afc2"/>
+				</reportElement>
+				<box>
+					<pen lineWidth="0.5" lineStyle="Solid" lineColor="#A561CF"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{Iznos}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="308" y="0" width="70" height="30" uuid="0666a982-ae90-4fb3-b687-5eb06dbdb9ba">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="ab7fcc2f-23c8-49c1-aaea-df1b3e93aba4"/>
+				</reportElement>
+				<box>
+					<pen lineWidth="0.5" lineStyle="Solid" lineColor="#A561CF"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{CIJ_CIJENA}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="25" y="0" width="40" height="30" uuid="31524421-2638-437b-ad97-da6d21a2b3b8">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="088c08ec-02f0-4a74-81b4-366f6c5a5827"/>
+				</reportElement>
+				<box>
+					<pen lineWidth="0.5" lineStyle="Solid" lineColor="#A561CF"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$V{REPORT_COUNT}+"."]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="41">
+			<textField>
+				<reportElement x="25" y="10" width="173" height="25" uuid="9a0dff7d-89c5-4ece-b940-31d89e678e8a"/>
+				<box padding="3">
+					<pen lineWidth="2.0" lineColor="#523BFF"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Prihod sa PDV-om: "+$V{Zarada}+ " BAM"]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="201" y="10" width="171" height="25" uuid="af91e22e-d3e3-46e0-b987-55849c0961f6"/>
+				<box padding="3">
+					<pen lineWidth="2.0" lineColor="#0DFF39"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA["PDV (17%): "+$V{Zarada}.divide(new BigDecimal(100)).multiply(new BigDecimal(17)).setScale(2,BigDecimal.ROUND_CEILING)+ " BAM"]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="375" y="10" width="173" height="25" uuid="7e28e91b-9f9c-4a9f-bc4b-7381faae795e"/>
+				<box padding="3">
+					<pen lineWidth="2.0" lineColor="#59FFFC"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Prihod bez PDV-a: "+ $V{Zarada}.subtract($V{Zarada}.divide(new BigDecimal(100.00)).multiply(new BigDecimal(17.00))).setScale(2, BigDecimal.ROUND_CEILING)+ " BAM"]]></textFieldExpression>
+			</textField>
+		</band>
+	</columnFooter>
+	<pageFooter>
+		<band height="54" splitType="Stretch">
+			<textField>
+				<reportElement x="180" y="25" width="100" height="20" uuid="1981c69a-9060-420f-987d-dd7a4bd4b088"/>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression><![CDATA[$V{PAGE_NUMBER}+""]]></textFieldExpression>
+			</textField>
+			<textField evaluationTime="Report">
+				<reportElement x="280" y="25" width="100" height="20" uuid="14444282-ee96-4970-867a-537725f2c1a6"/>
+				<textElement textAlignment="Left"/>
+				<textFieldExpression><![CDATA[" od " + $V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+			<textField pattern="dd/MM/yyyy HH:mm:ss">
+				<reportElement x="453" y="25" width="100" height="20" uuid="0232ac30-9ffd-4df6-a916-8754f662459f"/>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageFooter>
+	<summary>
+		<band height="42" splitType="Stretch"/>
+	</summary>
+</jasperReport>

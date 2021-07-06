@@ -1,0 +1,1026 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<database xmlns="http://www.example.org/xml-db" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" name="PodsistemiNaKonceptualnomNivou" xsi:schemaLocation="http://www.example.org/xml-db xml-db.xsd">
+<connection address="78.28.157.8" database="PIS2019" database_type="MsSQL" password="EtfPIS2019G48425" port="default" schema="PISG4" username="EtfPIS2019G4"/>
+<package name="ZajednickiDio">
+<table code="DRZAVNO_UREDJENJE" name="Drzavno uredjenje">
+<groups>
+<group id="0" name="Ime grupe"/>
+</groups>
+<column code="DU_OZNAKA" group="0" name="Oznaka" nullable="false" primary="true" size="2" type="char(2)"/>
+<column code="DU_NAZIV" group="0" name="Naziv" nullable="false" primary="false" size="30" type="varchar(30)"/>
+<crud>
+<create/>
+<retrieve/>
+<update/>
+<delete/>
+</crud>
+</table>
+<table code="ISTORIJA_UREDJENJA" name="Istorija uredjenja">
+<groups>
+<group id="0" name="Ime grupe"/>
+</groups>
+<column code="DR_OZNAKA" group="0" name="Drzava_Oznaka" nullable="false" primary="true" size="3" type="char(3)">
+<references refColumn="DR_OZNAKA" refTable="DRZAVA"/>
+</column>
+<column code="IST_REDNI_BROJ" group="0" name="Redni broj" nullable="false" primary="true" size="" type="int"/>
+<column code="DU_OZNAKA" group="0" name="Drz_Ure_Oznaka" nullable="false" primary="false" size="2" type="char(2)">
+<references refColumn="DU_OZNAKA" refTable="DRZAVNO_UREDJENJE"/>
+</column>
+<column code="IST_OD" group="0" name="Od" nullable="false" primary="false" size="" type="datetime"/>
+<column code="IST_DO" group="0" name="Do" nullable="false" primary="false" size="" type="datetime"/>
+<crud>
+<create/>
+<retrieve/>
+<update/>
+<delete/>
+</crud>
+</table>
+<table code="OPSTINA" name="Opstina">
+<groups>
+<group id="0" name="Ime grupe"/>
+</groups>
+<column code="DR_OZNAKA" group="0" name="Drzava_Oznaka" nullable="false" primary="true" size="3" type="char(3)">
+<references refColumn="DR_OZNAKA" refTable="DRZAVA"/>
+<references refColumn="DR_OZNAKA" refTable="NASELJENO_MJESTO"/>
+</column>
+<column code="O_OZNAKA" group="0" name="Oznaka" nullable="false" primary="true" size="3" type="numeric(3)"/>
+<column code="NM_OZNAKA" group="0" name="Sjed_Ops_Oznaka" nullable="false" primary="false" size="" type="int">
+<references refColumn="NM_OZNAKA" refTable="NASELJENO_MJESTO"/>
+</column>
+<column code="O_NAZIV" group="0" name="Naziv" nullable="false" primary="false" size="60" type="varchar(60)"/>
+<crud>
+<create/>
+<retrieve/>
+<update/>
+<delete/>
+</crud>
+</table>
+<table code="REGION" name="Region">
+<groups>
+<group id="0" name="Ime grupe"/>
+</groups>
+<column code="R_OZNAKA" group="0" name="Oznaka" nullable="false" primary="true" size="" type="int"/>
+<column code="DR_OZNAKA" group="0" name="Drzava_Oznaka" nullable="false" primary="false" size="3" type="char(3)">
+<references refColumn="DR_OZNAKA" refTable="NASELJENO_MJESTO"/>
+<references refColumn="DR_OZNAKA" refTable="DRZAVA"/>
+</column>
+<column code="NM_OZNAKA" group="0" name="Reg_Cen_Oznaka" nullable="false" primary="false" size="" type="int">
+<references refColumn="NM_OZNAKA" refTable="NASELJENO_MJESTO"/>
+</column>
+<column code="TR_OZNAKA" group="0" name="Tip_Oznaka" nullable="false" primary="false" size="1" type="char(1)">
+<references refColumn="TR_OZNAKA" refTable="TIP_REGIONA"/>
+</column>
+<column code="R_NAZIV" group="0" name="Naziv" nullable="false" primary="false" size="60" type="varchar(60)"/>
+<crud>
+<create/>
+<retrieve/>
+<update/>
+<delete/>
+</crud>
+</table>
+<table code="TIP_REGIONA" name="Tip regiona">
+<groups>
+<group id="0" name="Ime grupe"/>
+</groups>
+<column code="TR_OZNAKA" group="0" name="Oznaka" nullable="false" primary="true" size="1" type="char(1)"/>
+<column code="TR_NAZIV" group="0" name="Naziv" nullable="false" primary="false" size="20" type="varchar(20)"/>
+<crud>
+<create/>
+<retrieve/>
+<update/>
+<delete/>
+</crud>
+</table>
+<table code="SASTAV_DRZAVE" name="Sastav drzave">
+<groups>
+<group id="0" name="Ime grupe"/>
+</groups>
+<column code="DRZ_DR_OZNAKA" group="0" name="Drzava_Oznaka" nullable="false" primary="true" size="3" type="char(3)">
+<references refColumn="DR_OZNAKA" refTable="DRZAVA"/>
+</column>
+<column code="DR_OZNAKA" group="0" name="Oznaka" nullable="false" primary="true" size="3" type="char(3)">
+<references refColumn="DR_OZNAKA" refTable="DRZAVA"/>
+</column>
+<crud>
+<create/>
+<retrieve/>
+<update/>
+<delete/>
+</crud>
+</table>
+<table code="SASTAV_REGIONA" name="Sastav regiona">
+<groups>
+<group id="0" name="Ime grupe"/>
+</groups>
+<column code="REG_R_OZNAKA" group="0" name="Region_Oznaka" nullable="false" primary="true" size="" type="int">
+<references refColumn="R_OZNAKA" refTable="REGION"/>
+</column>
+<column code="R_OZNAKA" group="0" name="Oznaka" nullable="false" primary="true" size="" type="int">
+<references refColumn="R_OZNAKA" refTable="REGION"/>
+</column>
+<crud>
+<create/>
+<retrieve/>
+<update/>
+<delete/>
+</crud>
+</table>
+<table code="SASTAV_NASELJA" name="Sastav naselja">
+<groups>
+<group id="0" name="Ime grupe"/>
+</groups>
+<column code="DR_OZNAKA" group="0" name="Drzava_Oznaka" nullable="false" primary="true" size="3" type="char(3)">
+<references refColumn="DR_OZNAKA" refTable="NASELJENO_MJESTO"/>
+<references refColumn="DR_OZNAKA" refTable="OPSTINA"/>
+</column>
+<column code="O_OZNAKA" group="0" name="Opstina_Oznaka" nullable="false" primary="true" size="3" type="numeric(3)">
+<references refColumn="O_OZNAKA" refTable="OPSTINA"/>
+</column>
+<column code="NM_OZNAKA" group="0" name="Nas_Mje_Oznaka" nullable="false" primary="true" size="" type="int">
+<references refColumn="NM_OZNAKA" refTable="NASELJENO_MJESTO"/>
+</column>
+<crud>
+<create/>
+<retrieve/>
+<update/>
+<delete/>
+</crud>
+</table>
+<table code="NASELJA_U_REGIONU" name="Naselja u regionu">
+<groups>
+<group id="0" name="Ime grupe"/>
+</groups>
+<column code="R_OZNAKA" group="0" name="Region_Oznaka" nullable="false" primary="true" size="" type="int">
+<references refColumn="R_OZNAKA" refTable="REGION"/>
+</column>
+<column code="DR_OZNAKA" group="0" name="Drzava_Oznaka" nullable="false" primary="true" size="3" type="char(3)">
+<references refColumn="DR_OZNAKA" refTable="NASELJENO_MJESTO"/>
+</column>
+<column code="NM_OZNAKA" group="0" name="Nas_Mje_Oznaka" nullable="false" primary="true" size="" type="int">
+<references refColumn="NM_OZNAKA" refTable="NASELJENO_MJESTO"/>
+</column>
+<crud>
+<create/>
+<retrieve/>
+<update/>
+<delete/>
+</crud>
+</table>
+<table code="ORGANIZACIONA_JEDINICA" name="Organizaciona jedinica">
+<groups>
+<group id="0" name="Ime grupe"/>
+</groups>
+<column code="OJ_OZNAKA" group="0" name="Oznaka" nullable="false" primary="true" size="" type="int"/>
+<column code="PS_JIB" group="0" name="JIB" nullable="false" primary="true" size="20" type="varchar(20)">
+<references refColumn="PS_JIB" refTable="POSLOVNI_SISTEM"/>
+</column>
+<column code="TPS_OZNAKA" group="0" name="Tip_Oznaka" nullable="false" primary="true" size="2" type="char(2)">
+<references refColumn="TPS_OZNAKA" refTable="POSLOVNI_SISTEM"/>
+</column>
+<column code="DR_OZNAKA" group="0" name="Drzava_Oznaka" nullable="false" primary="true" size="3" type="char(3)">
+<references refColumn="DR_OZNAKA" refTable="POSLOVNI_SISTEM"/>
+<references refColumn="DR_OZNAKA" refTable="NASELJENO_MJESTO"/>
+</column>
+<column code="NM_OZNAKA" group="0" name="Nas_Mje_Oznaka" nullable="true" primary="false" size="" type="int">
+<references refColumn="NM_OZNAKA" refTable="NASELJENO_MJESTO"/>
+</column>
+<column code="OJ_NAZIV" group="0" name="Naziv" nullable="false" primary="false" size="30" type="varchar(30)"/>
+<column code="OJ_ADRESA" group="0" name="Adresa" nullable="false" primary="false" size="80" type="varchar(80)"/>
+<column code="OJ_TELEFON" group="0" name="Telefon" nullable="true" primary="false" size="15" type="varchar(15)"/>
+<column code="OJ_EMAIL" group="0" name="E_mail" nullable="true" primary="false" size="60" type="varchar(60)"/>
+<crud>
+<create/>
+<retrieve/>
+<update/>
+<delete/>
+</crud>
+</table>
+<table code="TIP_POSLOVNOG_SISTEMA" name="Tip poslovnog sistema">
+<groups>
+<group id="0" name="Ime grupe"/>
+</groups>
+<column code="TPS_OZNAKA" group="0" name="Oznaka" nullable="false" primary="true" size="2" type="char(2)"/>
+<column code="TPS_NAZIV" group="0" name="Naziv" nullable="true" primary="false" size="80" type="varchar(80)"/>
+<crud>
+<create/>
+<retrieve/>
+<update/>
+<delete/>
+</crud>
+</table>
+<table code="NASELJENO_MJESTO" name="Naseljeno mjesto">
+<groups>
+<group id="0" name="Ime grupe"/>
+</groups>
+<column code="DR_OZNAKA" group="0" name="Drzava_Oznaka" nullable="false" primary="true" size="3" type="char(3)">
+<references refColumn="DR_OZNAKA" refTable="DRZAVA"/>
+</column>
+<column code="NM_OZNAKA" group="0" name="Oznaka" nullable="false" primary="true" size="" type="int"/>
+<column code="NM_NAZIV" group="0" name="Naziv" nullable="true" primary="false" size="30" type="varchar(30)"/>
+<column code="NM_PTT" group="0" name="PTT" nullable="true" primary="false" size="12" type="varchar(12)"/>
+<crud>
+<create/>
+<retrieve/>
+<update/>
+<delete/>
+</crud>
+</table>
+<table code="DRZAVA" name="Drzava">
+<groups>
+<group id="0" name="Ime grupe"/>
+</groups>
+<column code="DR_OZNAKA" group="0" name="Oznaka" nullable="false" primary="true" size="3" type="char(3)">
+<references refColumn="DR_OZNAKA" refTable="NASELJENO_MJESTO"/>
+<references refColumn="PN_OZNAKA" refTable="DRZAVA"/>
+</column>
+<column code="DU_OZNAKA" group="0" name="Drz_Ure_Oznaka" nullable="true" primary="false" size="2" type="char(2)">
+<references refColumn="DU_OZNAKA" refTable="DRZAVNO_UREDJENJE"/>
+</column>
+<column code="PN_OZNAKA" group="0" name="Pra_Nas_Oznaka" nullable="true" primary="false" size="3" type="char(3)">
+<references refColumn="DR_OZNAKA" refTable="DRZAVA"/>
+</column>
+<column code="NM_OZNAKA" group="0" name="Glavni_Grad_Oznaka" nullable="true" primary="false" size="" type="int">
+<references refColumn="NM_OZNAKA" refTable="NASELJENO_MJESTO"/>
+</column>
+<column code="DR_NAZIV" group="0" name="Naziv" nullable="false" primary="false" size="80" type="varchar(80)"/>
+<column code="DR_GRB" group="0" name="Grb" nullable="true" primary="false" size="" type="image"/>
+<column code="DR_ZASTAVA" group="0" name="Zastava" nullable="true" primary="false" size="" type="image"/>
+<column code="DR_HIMNA" group="0" name="Himna" nullable="true" primary="false" size="" type="VBIN"/>
+<crud>
+<create/>
+<retrieve/>
+<update/>
+<delete/>
+</crud>
+</table>
+<table code="POSLOVNI_SISTEM" name="Poslovni sistem">
+<groups>
+<group id="0" name="Ime grupe"/>
+</groups>
+<column code="PS_JIB" group="0" name="JIB" nullable="false" primary="true" size="20" type="varchar(20)"/>
+<column code="TPS_OZNAKA" group="0" name="Tip_Oznaka" nullable="false" primary="true" size="2" type="char(2)">
+<references refColumn="TPS_OZNAKA" refTable="TIP_POSLOVNOG_SISTEMA"/>
+</column>
+<column code="DR_OZNAKA" group="0" name="Drzava_Oznaka" nullable="false" primary="true" size="3" type="char(3)">
+<references refColumn="DR_OZNAKA" refTable="DRZAVA"/>
+<references refColumn="DR_OZNAKA" refTable="NASELJENO_MJESTO"/>
+</column>
+<column code="NM_OZNAKA" group="0" name="Nas_Mje_Oznaka" nullable="false" primary="false" size="" type="int">
+<references refColumn="NM_OZNAKA" refTable="NASELJENO_MJESTO"/>
+</column>
+<column code="PS_MSB" group="0" name="MBS" nullable="false" primary="false" size="30" type="varchar(30)"/>
+<column code="PS_NAZIV" group="0" name="Naziv" nullable="false" primary="false" size="120" type="varchar(120)"/>
+<column code="PS_SKRACENI_NAZIV" group="0" name="Skraceni_Naziv" nullable="true" primary="false" size="60" type="varchar(60)"/>
+<column code="PS_STATUS" group="0" name="Stecaj" nullable="false" primary="false" size="" type="bit"/>
+<column code="PS_CARINSKI_BROJ" group="0" name="Carinski_Broj" nullable="true" primary="false" size="25" type="varchar(25)"/>
+<column code="PS_ADRESA" group="0" name="Adresa" nullable="false" primary="false" size="80" type="varchar(80)"/>
+<column code="PS_TELEFON" group="0" name="Telefon" nullable="true" primary="false" size="15" type="varchar(15)"/>
+<column code="PS_EMAIL" group="0" name="E_mail" nullable="true" primary="false" size="60" type="varchar(60)"/>
+<column code="PS_WWW" group="0" name="www" nullable="true" primary="false" size="60" type="varchar(60)"/>
+<crud>
+<create/>
+<retrieve/>
+<update/>
+<delete/>
+</crud>
+</table>
+<table code="POVEZANI_SISTEM" name="Povezani Sistem">
+<groups>
+<group id="0" name="Ime grupe"/>
+</groups>
+<column code="TPS_OZNAKA" group="0" name="Tip_Oznaka" nullable="false" primary="true" size="2" type="char(2)">
+<references refColumn="TPS_OZNAKA" refTable="POSLOVNI_SISTEM"/>
+</column>
+<column code="PS_JIB" group="0" name="JIB" nullable="false" primary="true" size="20" type="varchar(20)">
+<references refColumn="PS_JIB" refTable="POSLOVNI_SISTEM"/>
+</column>
+<column code="POS_TPS_OZNAKA" group="0" name="PS_Tip_Oznaka" nullable="false" primary="true" size="2" type="char(2)">
+<references refColumn="TPS_OZNAKA" refTable="POSLOVNI_SISTEM"/>
+</column>
+<column code="POS_PS_JIB" group="0" name="PS_JIB" nullable="false" primary="true" size="20" type="varchar(20)">
+<references refColumn="PS_JIB" refTable="POSLOVNI_SISTEM"/>
+</column>
+<column code="POS_DR_OZNAKA" group="0" name="PS_Drzava_Oznaka" nullable="false" primary="true" size="3" type="char(3)">
+<references refColumn="DR_OZNAKA" refTable="POSLOVNI_SISTEM"/>
+</column>
+<column code="DR_OZNAKA" group="0" name="Drzava_Oznaka" nullable="false" primary="true" size="3" type="char(3)">
+<references refColumn="DR_OZNAKA" refTable="POSLOVNI_SISTEM"/>
+</column>
+<crud>
+<create/>
+<retrieve/>
+<update/>
+<delete/>
+</crud>
+</table>
+<table code="ORGANIZACIONA_SEMA" name="Organizaciona sema">
+<groups>
+<group id="0" name="Ime grupe"/>
+</groups>
+<column code="TPS_OZNAKA" group="0" name="Tip_Oznaka" nullable="false" primary="true" size="2" type="char(2)">
+<references refColumn="TPS_OZNAKA" refTable="ORGANIZACIONA_JEDINICA"/>
+</column>
+<column code="ORG_TPS_OZNAKA" group="0" name="OJ_Tip_Oznaka" nullable="false" primary="true" size="2" type="char(2)">
+<references refColumn="TPS_OZNAKA" refTable="ORGANIZACIONA_JEDINICA"/>
+</column>
+<column code="PS_JIB" group="0" name="JIB" nullable="false" primary="true" size="20" type="varchar(20)">
+<references refColumn="PS_JIB" refTable="ORGANIZACIONA_JEDINICA"/>
+</column>
+<column code="ORG_PS_JIB" group="0" name="OJ_JIB" nullable="false" primary="true" size="20" type="varchar(20)">
+<references refColumn="PS_JIB" refTable="ORGANIZACIONA_JEDINICA"/>
+</column>
+<column code="ORG_OZNAKA" group="0" name="Oznaka" nullable="false" primary="true" size="" type="int">
+<references refColumn="OJ_OZNAKA" refTable="ORGANIZACIONA_JEDINICA"/>
+</column>
+<column code="ORG_OJ_OZNAKA" group="0" name="OJ_Oznaka" nullable="false" primary="true" size="" type="int">
+<references refColumn="OJ_OZNAKA" refTable="ORGANIZACIONA_JEDINICA"/>
+</column>
+<column code="DR_OZNAKA" group="0" name="Drzava_Oznaka" nullable="false" primary="true" size="3" type="char(3)">
+<references refColumn="DR_OZNAKA" refTable="ORGANIZACIONA_JEDINICA"/>
+</column>
+<column code="ORG_DR_OZNAKA" group="0" name="OJ_Drzava_Oznaka" nullable="false" primary="true" size="3" type="char(3)">
+<references refColumn="DR_OZNAKA" refTable="ORGANIZACIONA_JEDINICA"/>
+</column>
+<crud>
+<create/>
+<retrieve/>
+<update/>
+<delete/>
+</crud>
+</table>
+</package>
+<package name="Restoran">
+<table code="ASORTIMAN_ARTIKALA" name="Asortiman artikala">
+<groups>
+<group id="0" name="Ime grupe"/>
+</groups>
+<column code="AA_OZNAKA" group="0" name="Oznaka" nullable="false" primary="true" size="" type="int"/>
+<column code="TPS_OZNAKA" group="0" name="TipPS_Oznaka" nullable="false" primary="true" size="2" type="char(2)">
+<references refColumn="TPS_OZNAKA" refTable="ORGANIZACIONA_JEDINICA"/>
+</column>
+<column code="PS_JIB" group="0" name="JIB" nullable="false" primary="true" size="20" type="varchar(20)">
+<references refColumn="PS_JIB" refTable="ORGANIZACIONA_JEDINICA"/>
+</column>
+<column code="OJ_OZNAKA" group="0" name="Org_Jed_Oznaka" nullable="false" primary="true" size="" type="int">
+<references refColumn="OJ_OZNAKA" refTable="ORGANIZACIONA_JEDINICA"/>
+</column>
+<column code="DR_OZNAKA" group="0" name="Drzava_Oznaka" nullable="false" primary="true" size="3" type="char(3)">
+<references refColumn="DR_OZNAKA" refTable="ORGANIZACIONA_JEDINICA"/>
+</column>
+<column code="TM_OZNAKA" group="0" name="Tip_Menija_Oznaka" nullable="true" primary="false" size="2" type="char(2)">
+<references refColumn="TM_OZNAKA" refTable="TIP_MENIJA"/>
+</column>
+<column code="DR_POR_OZNAKA" group="0" name="Drz_Por_Oznaka" nullable="true" primary="false" size="3" type="char(3)">
+<references refColumn="DR_OZNAKA" refTable="DRZAVA"/>
+</column>
+<column code="AA_NAZIV" group="0" name="Naziv" nullable="false" primary="false" size="80" type="varchar(80)"/>
+<column code="AA_PROIZVODJAC" group="0" name="Proizvodjac" nullable="true" primary="false" size="80" type="varchar(80)"/>
+<column code="AA_GODINA_PROIZVODNJE" group="0" name="Godina_Proizvodnje" nullable="true" primary="false" size="4" type="numeric(4)"/>
+<crud>
+<create/>
+<retrieve/>
+<update/>
+<delete/>
+</crud>
+</table>
+<table code="CIJENOVNIK" name="Cijenovnik">
+<groups>
+<group id="0" name="Ime grupe"/>
+</groups>
+<column code="CIJ_OZNAKA" group="0" name="Oznaka" nullable="false" primary="true" size="" type="int"/>
+<column code="TPS_OZNAKA" group="0" name="TipPS_Oznaka" nullable="false" primary="true" size="2" type="char(2)">
+<references refColumn="TPS_OZNAKA" refTable="ORGANIZACIONA_JEDINICA"/>
+</column>
+<column code="PS_JIB" group="0" name="JIB" nullable="false" primary="true" size="20" type="varchar(20)">
+<references refColumn="PS_JIB" refTable="ORGANIZACIONA_JEDINICA"/>
+</column>
+<column code="OJ_OZNAKA" group="0" name="Org_Jed_Oznaka" nullable="false" primary="true" size="" type="int">
+<references refColumn="OJ_OZNAKA" refTable="ORGANIZACIONA_JEDINICA"/>
+</column>
+<column code="DR_OZNAKA" group="0" name="Drzava_Oznaka" nullable="false" primary="true" size="3" type="char(3)">
+<references refColumn="DR_OZNAKA" refTable="ORGANIZACIONA_JEDINICA"/>
+</column>
+<column code="TM_OZNAKA" group="0" name="Tip_Menija_Oznaka" nullable="false" primary="true" size="2" type="char(2)">
+<references refColumn="TM_OZNAKA" refTable="TIP_MENIJA"/>
+</column>
+<column code="CIJ_NAZIV" group="0" name="Naziv" nullable="false" primary="false" size="80" type="varchar(80)"/>
+<column code="CIJ_DATUM_POCETKA_VAZENJA" group="0" name="Datum_Pocetka_Vazenja" nullable="false" primary="false" size="" type="datetime"/>
+<column code="CIJ_DATUM_ZAVRSETKA_VAZENJA" group="0" name="Datum_Zavrsetka_Vazenja" nullable="true" primary="false" size="" type="datetime"/>
+<column code="CIJ_CIJENA" group="0" name="Cijena" nullable="false" primary="false" size="7" type="decimal(7,2)"/>
+<column code="CIJ_AKTIVAN" group="0" name="Aktivan" nullable="false" primary="false" size="" type=""/>
+<crud>
+<create/>
+<retrieve/>
+<update/>
+<delete/>
+</crud>
+</table>
+<table code="DNEVNA_PONUDA" name="Dnevna ponuda">
+<groups>
+<group id="0" name="Ime grupe"/>
+</groups>
+<column code="DPON_OZNAKA" group="0" name="Oznaka" nullable="false" primary="true" size="" type="int"/>
+<column code="TPS_OZNAKA" group="0" name="TipPS_Oznaka" nullable="false" primary="true" size="2" type="char(2)">
+<references refColumn="TPS_OZNAKA" refTable="CIJENOVNIK"/>
+</column>
+<column code="PS_JIB" group="0" name="JIB" nullable="false" primary="true" size="20" type="varchar(20)">
+<references refColumn="PS_JIB" refTable="CIJENOVNIK"/>
+</column>
+<column code="OJ_OZNAKA" group="0" name="Org_Jed_Oznaka" nullable="false" primary="true" size="" type="int">
+<references refColumn="OJ_OZNAKA" refTable="CIJENOVNIK"/>
+</column>
+<column code="DR_OZNAKA" group="0" name="Drzava_Oznaka" nullable="false" primary="true" size="3" type="char(3)">
+<references refColumn="DR_OZNAKA" refTable="CIJENOVNIK"/>
+</column>
+<column code="TM_OZNAKA" group="0" name="Tip_Menija_Oznaka" nullable="false" primary="true" size="2" type="char(2)">
+<references refColumn="TM_OZNAKA" refTable="CIJENOVNIK"/>
+</column>
+<column code="CIJ_OZNAKA" group="0" name="CIjenovnik_Oznaka" nullable="false" primary="true" size="" type="int">
+<references refColumn="CIJ_OZNAKA" refTable="CIJENOVNIK"/>
+</column>
+<column code="DPON_DATUM_POCETKA_VAZENJA" group="0" name="Datum_Pocetka_Vazenja" nullable="false" primary="false" size="" type="datetime"/>
+<column code="DPON_DATUM_ZAVRSETKA_VAZENJA" group="0" name="Datum_Zavrsetka_Vazenja" nullable="true" primary="false" size="" type="datetime"/>
+<column code="DPON_CIJENA" group="0" name="CIjena" nullable="false" primary="false" size="7" type="decimal(7,2)"/>
+<crud>
+<create/>
+<retrieve/>
+<update/>
+<delete/>
+</crud>
+</table>
+<table code="RADNIK" name="Radnik">
+<groups>
+<group id="0" name="Ime grupe"/>
+</groups>
+<column code="RAD_OZNAKA" group="0" name="Oznaka" nullable="false" primary="true" size="3" type="char(3)"/>
+<column code="OJ_OZNAKA" group="0" name="Org_Jed_Oznaka" nullable="false" primary="true" size="" type="int">
+<references refColumn="OJ_OZNAKA" refTable="ORGANIZACIONA_JEDINICA"/>
+<references refColumn="OJ_OZNAKA" refTable="SMJENA"/>
+</column>
+<column code="TPS_OZNAKA" group="0" name="TipPS_Oznaka" nullable="false" primary="true" size="2" type="char(2)">
+<references refColumn="TPS_OZNAKA" refTable="ORGANIZACIONA_JEDINICA"/>
+<references refColumn="TPS_OZNAKA" refTable="SMJENA"/>
+</column>
+<column code="PS_JIB" group="0" name="JIB" nullable="false" primary="true" size="20" type="varchar(20)">
+<references refColumn="PS_JIB" refTable="ORGANIZACIONA_JEDINICA"/>
+<references refColumn="PS_JIB" refTable="SMJENA"/>
+</column>
+<column code="DR_OZNAKA" group="0" name="Drzava_Oznaka" nullable="false" primary="true" size="3" type="char(3)">
+<references refColumn="DR_OZNAKA" refTable="ORGANIZACIONA_JEDINICA"/>
+<references refColumn="DR_OZNAKA" refTable="SMJENA"/>
+</column>
+<column code="RM_OZNAKA" group="0" name="Rad_Mje_Oznaka" nullable="false" primary="false" size="1" type="char(1)">
+<references refColumn="RM_OZNAKA" refTable="RADNO_MJESTO"/>
+</column>
+<column code="SM_OZNAKA" group="0" name="Smjena_Oznaka" nullable="false" primary="false" size="1" type="char(1)">
+<references refColumn="SM_OZNAKA" refTable="SMJENA"/>
+</column>
+<column code="RAD_IME" group="0" name="Ime" nullable="false" primary="false" size="30" type="varchar(30)"/>
+<column code="RAD_PREZIME" group="0" name="Prezime" nullable="false" primary="false" size="30" type="varchar(30)"/>
+<column code="RAD_KATEGORIJA" group="0" name="Radni_Odnos" nullable="false" primary="false" size="40" type="varchar(40)"/>
+<column code="RAD_PLATA" group="0" name="Plata" nullable="false" primary="false" size="8" type="decimal(8,2)"/>
+<column code="RAD_ADRESA" group="0" name="Adresa_Stanovanja" nullable="true" primary="false" size="80" type="varchar(80)"/>
+<column code="RAD_TELEFON" group="0" name="Telefon" nullable="true" primary="false" size="15" type="varchar(15)"/>
+<crud>
+<create/>
+<retrieve/>
+<update/>
+<delete/>
+</crud>
+</table>
+<table code="NARUDZBA" name="Narudzba">
+<groups>
+<group id="0" name="Ime grupe"/>
+</groups>
+<column code="NAR_OZNAKA" group="0" name="Oznaka" nullable="false" primary="true" size="" type="int"/>
+<column code="NLC_OZNAKA" group="0" name="Narucilac_Oznaka" nullable="true" primary="false" size="" type="int">
+<references refColumn="NLC_OZNAKA" refTable="NARUCILAC"/>
+</column>
+<column code="ZKP_OZNAKA" group="0" name="Zakup_Oznaka" nullable="true" primary="false" size="" type="int">
+<references refColumn="ZKP_OZNAKA" refTable="ZAKUP"/>
+</column>
+<column code="RADNIK_OZNAKA" group="0" name="Radnik_Oznaka" nullable="true" primary="false" size="3" type="char(3)">
+<references refColumn="RAD_OZNAKA" refTable="RADNIK"/>
+</column>
+<column code="TPS_OZNAKA" group="0" name="TipPS_Oznaka" nullable="false" primary="false" size="2" type="char(2)">
+<references refColumn="TPS_OZNAKA" refTable="ORGANIZACIONA_JEDINICA"/>
+<references refColumn="TPS_OZNAKA" refTable="RADNIK"/>
+</column>
+<column code="PS_JIB" group="0" name="JIB" nullable="false" primary="false" size="20" type="varchar(20)">
+<references refColumn="PS_JIB" refTable="ORGANIZACIONA_JEDINICA"/>
+<references refColumn="PS_JIB" refTable="RADNIK"/>
+</column>
+<column code="OJ_OZNAKA" group="0" name="Org_Jed_Oznaka" nullable="false" primary="false" size="" type="int">
+<references refColumn="OJ_OZNAKA" refTable="ORGANIZACIONA_JEDINICA"/>
+<references refColumn="OJ_OZNAKA" refTable="RADNIK"/>
+</column>
+<column code="DR_OZNAKA" group="0" name="Drzava_Oznaka" nullable="false" primary="false" size="3" type="char(3)">
+<references refColumn="DR_OZNAKA" refTable="ORGANIZACIONA_JEDINICA"/>
+<references refColumn="DR_OZNAKA" refTable="RADNIK"/>
+</column>
+<column code="NAR_DATUM_I_VRIJEME" group="0" name="Datum_i_vrijeme" nullable="false" primary="false" size="" type="datetime"/>
+<column code="NAR_IZNOS" group="0" name="Iznos" nullable="false" primary="false" size="7" type="decimal(7,2)"/>
+<column code="NAR_VRSTA" group="0" name="Vrsta" nullable="false" primary="false" size="15" type="varchar(15)"/>
+<column code="NAR_ZAVRSENA" group="0" name="Zavrsena" nullable="false" primary="false" size="" type="bit"/>
+<crud>
+<create/>
+<retrieve/>
+<update/>
+<delete/>
+</crud>
+</table>
+<table code="NARUCILAC" name="Narucilac">
+<groups>
+<group id="0" name="Ime grupe"/>
+</groups>
+<column code="NLC_OZNAKA" group="0" name="Oznaka" nullable="false" primary="true" size="" type="int"/>
+<column code="NLC_IME" group="0" name="Ime" nullable="false" primary="false" size="30" type="varchar(30)"/>
+<column code="NLC_PREZIME" group="0" name="Prezime" nullable="false" primary="false" size="30" type="varchar(30)"/>
+<column code="NLC_ADRESA" group="0" name="Adresa" nullable="false" primary="false" size="50" type="varchar(50)"/>
+<column code="NLC_TELEFON" group="0" name="Telefon" nullable="false" primary="false" size="15" type="numeric(15)"/>
+<crud>
+<create/>
+<retrieve/>
+<update/>
+<delete/>
+</crud>
+</table>
+<table code="PRIMJEDBA" name="Primjedba">
+<groups>
+<group id="0" name="Ime grupe"/>
+</groups>
+<column code="PR_OZNAKA" group="0" name="Oznaka" nullable="false" primary="true" size="" type="int"/>
+<column code="NAR_OZNAKA" group="0" name="Narudzba_Oznaka" nullable="false" primary="false" size="" type="int">
+<references refColumn="NAR_OZNAKA" refTable="NARUDZBA"/>
+</column>
+<column code="PR_KOMENTAR" group="0" name="Komentar" nullable="false" primary="false" size="300" type="varchar(300)"/>
+<crud>
+<create/>
+<retrieve/>
+<update/>
+<delete/>
+</crud>
+</table>
+<table code="ABONENT" name="Abonent">
+<groups>
+<group id="0" name="Ime grupe"/>
+</groups>
+<column code="AB_ID_CLANA" group="0" name="Clanski_Broj" nullable="false" primary="true" size="3" type="char(3)"/>
+<column code="AB_IME" group="0" name="Ime" nullable="false" primary="false" size="30" type="varchar(30)"/>
+<column code="AB_PREZIME" group="0" name="Prezime" nullable="false" primary="false" size="30" type="varchar(30)"/>
+<column code="AB_DATUM_RODJENJA" group="0" name="Datum_Rodjenja" nullable="true" primary="false" size="" type="datetime"/>
+<column code="AB_DATUM_POCETKA_STATUSA" group="0" name="Datum_Pocetka_Statusa" nullable="false" primary="false" size="" type="datetime"/>
+<column code="AB_BROJ_OBROKA" group="0" name="Broj_Obroka" nullable="false" primary="false" size="" type="int"/>
+<column code="AB_ISKORISCENI_BROJ_OBROKA" group="0" name="Iskorisceni_Broj_Obroka" nullable="false" primary="false" size="" type="int"/>
+<crud>
+<create/>
+<retrieve/>
+<update/>
+<delete/>
+</crud>
+</table>
+<table code="KORISTENJE_USLUGE_RESTORANA" name="Koristenje usluge restorana">
+<groups>
+<group id="0" name="Ime grupe"/>
+</groups>
+<column code="KUS_OZNAKA" group="0" name="Oznaka" nullable="false" primary="true" size="3" type="char(3)"/>
+<column code="AB_ID_CLANA" group="0" name="Clanski_Broj" nullable="false" primary="false" size="3" type="char(3)">
+<references refColumn="AB_ID_CLANA" refTable="ABONENT"/>
+</column>
+<column code="KUS_DATUM" group="0" name="Datum" nullable="false" primary="false" size="" type="datetime"/>
+<column code="KUS_VRIJEME" group="0" name="Vrijeme" nullable="false" primary="false" size="" type="datetime"/>
+<crud>
+<create/>
+<retrieve/>
+<update/>
+<delete/>
+</crud>
+</table>
+<table code="TIP_MENIJA" name="Tip menija">
+<groups>
+<group id="0" name="Ime grupe"/>
+</groups>
+<column code="TM_OZNAKA" group="0" name="Oznaka" nullable="false" primary="true" size="2" type="char(2)"/>
+<column code="TM_NAZIV" group="0" name="Naziv" nullable="false" primary="false" size="80" type="varchar(80)"/>
+<crud>
+<create/>
+<retrieve/>
+<update/>
+<delete/>
+</crud>
+</table>
+<table code="NUDI_ARTIKAL" name="Nudi artikal">
+<groups>
+<group id="0" name="Ime grupe"/>
+</groups>
+<column code="AA_OZNAKA" group="0" name="Artikal_Oznaka" nullable="false" primary="true" size="" type="int">
+<references refColumn="AA_OZNAKA" refTable="ASORTIMAN_ARTIKALA"/>
+</column>
+<column code="CIJ_OZNAKA" group="0" name="Cijenovnik_Oznaka" nullable="false" primary="true" size="" type="int">
+<references refColumn="CIJ_OZNAKA" refTable="CIJENOVNIK"/>
+</column>
+<column code="TPS_OZNAKA" group="0" name="TipPS_Oznaka" nullable="false" primary="true" size="2" type="char(2)">
+<references refColumn="TPS_OZNAKA" refTable="ASORTIMAN_ARTIKALA"/>
+<references refColumn="TPS_OZNAKA" refTable="CIJENOVNIK"/>
+</column>
+<column code="PS_JIB" group="0" name="JIB" nullable="false" primary="true" size="20" type="varchar(20)">
+<references refColumn="PS_JIB" refTable="ASORTIMAN_ARTIKALA"/>
+<references refColumn="PS_JIB" refTable="CIJENOVNIK"/>
+</column>
+<column code="OJ_OZNAKA" group="0" name="Org_Jed_Oznaka" nullable="false" primary="true" size="" type="int">
+<references refColumn="OJ_OZNAKA" refTable="ASORTIMAN_ARTIKALA"/>
+<references refColumn="OJ_OZNAKA" refTable="CIJENOVNIK"/>
+</column>
+<column code="DR_OZNAKA" group="0" name="Drzava_Oznaka" nullable="false" primary="true" size="3" type="char(3)">
+<references refColumn="DR_OZNAKA" refTable="ASORTIMAN_ARTIKALA"/>
+<references refColumn="DR_OZNAKA" refTable="CIJENOVNIK"/>
+</column>
+<column code="TM_OZNAKA" group="0" name="Tip_Menija_Oznaka" nullable="false" primary="true" size="2" type="char(2)">
+<references refColumn="TM_OZNAKA" refTable="CIJENOVNIK"/>
+</column>
+<crud>
+<create/>
+<retrieve/>
+<update/>
+<delete/>
+</crud>
+</table>
+<table code="SADRZI_ARTIKAL_IZ_MENI_A" name="Sadrzi artikal iz meni-a">
+<groups>
+<group id="0" name="Ime grupe"/>
+</groups>
+<column code="NAR_OZNAKA" group="0" name="Nar_Oznaka" nullable="false" primary="true" size="" type="int">
+<references refColumn="NAR_OZNAKA" refTable="NARUDZBA"/>
+</column>
+<column code="CIJ_OZNAKA" group="0" name="CIjenovnik_Oznaka" nullable="false" primary="true" size="" type="int">
+<references refColumn="CIJ_OZNAKA" refTable="CIJENOVNIK"/>
+</column>
+<column code="TPS_OZNAKA" group="0" name="TipPS_Oznaka" nullable="false" primary="true" size="2" type="char(2)">
+<references refColumn="TPS_OZNAKA" refTable="CIJENOVNIK"/>
+</column>
+<column code="PS_JIB" group="0" name="JIB" nullable="false" primary="true" size="20" type="varchar(20)">
+<references refColumn="PS_JIB" refTable="CIJENOVNIK"/>
+</column>
+<column code="OJ_OZNAKA" group="0" name="Org_Jed_Oznaka" nullable="false" primary="true" size="" type="int">
+<references refColumn="OJ_OZNAKA" refTable="CIJENOVNIK"/>
+</column>
+<column code="DR_OZNAKA" group="0" name="Drzava_Oznaka" nullable="false" primary="true" size="3" type="char(3)">
+<references refColumn="DR_OZNAKA" refTable="CIJENOVNIK"/>
+</column>
+<column code="TM_OZNAKA" group="0" name="Tip_Menija_Oznaka" nullable="false" primary="true" size="2" type="char(2)">
+<references refColumn="TM_OZNAKA" refTable="CIJENOVNIK"/>
+</column>
+<column code="AIM_KOLICINA" group="0" name="Kolicina" nullable="false" primary="false" size="" type="smallint"/>
+<crud>
+<create/>
+<retrieve/>
+<update/>
+<delete/>
+</crud>
+</table>
+<table code="SADRZI_IZ_D_MENIJA" name="Sadrzi artikal iz dnevnog meni-a">
+<groups>
+<group id="0" name="Ime grupe"/>
+</groups>
+<column code="NARUDZBA_OZNAKA" group="0" name="Narudzba_Oznaka" nullable="false" primary="true" size="" type="int">
+<references refColumn="NAR_OZNAKA" refTable="NARUDZBA"/>
+</column>
+<column code="DPON_OZNAKA" group="0" name="Dne_Pon_Oznaka" nullable="false" primary="true" size="" type="int">
+<references refColumn="DPON_OZNAKA" refTable="DNEVNA_PONUDA"/>
+</column>
+<column code="TPS_OZNAKA" group="0" name="TipPS_Oznaka" nullable="false" primary="true" size="2" type="char(2)">
+<references refColumn="TPS_OZNAKA" refTable="DNEVNA_PONUDA"/>
+</column>
+<column code="PS_JIB" group="0" name="JIB" nullable="false" primary="true" size="20" type="varchar(20)">
+<references refColumn="PS_JIB" refTable="DNEVNA_PONUDA"/>
+</column>
+<column code="OJ_OZNAKA" group="0" name="Org_Jed_Oznaka" nullable="false" primary="true" size="" type="int">
+<references refColumn="OJ_OZNAKA" refTable="DNEVNA_PONUDA"/>
+</column>
+<column code="DR_OZNAKA" group="0" name="Drzava_Oznaka" nullable="false" primary="true" size="3" type="char(3)">
+<references refColumn="DR_OZNAKA" refTable="DNEVNA_PONUDA"/>
+</column>
+<column code="TM_OZNAKA" group="0" name="Tip_Menija_Oznaka" nullable="false" primary="true" size="2" type="char(2)">
+<references refColumn="TM_OZNAKA" refTable="DNEVNA_PONUDA"/>
+</column>
+<column code="CIJ_OZNAKA" group="0" name="Cijenovnik_Oznaka" nullable="false" primary="true" size="" type="int">
+<references refColumn="CIJ_OZNAKA" refTable="DNEVNA_PONUDA"/>
+</column>
+<column code="AID_KOLICINA" group="0" name="Kolicina" nullable="false" primary="false" size="" type="smallint"/>
+<crud>
+<create/>
+<retrieve/>
+<update/>
+<delete/>
+</crud>
+</table>
+<table code="NUDI_IZ_D_MENIJA" name="Nudi uslugu iz dnevnog meni-a">
+<groups>
+<group id="0" name="Ime grupe"/>
+</groups>
+<column code="KUS_OZNAKA" group="0" name="KUS_Oznaka" nullable="false" primary="true" size="3" type="char(3)">
+<references refColumn="KUS_OZNAKA" refTable="KORISTENJE_USLUGE_RESTORANA"/>
+</column>
+<column code="DPON_OZNAKA" group="0" name="Dne_Pon_Oznaka" nullable="false" primary="true" size="" type="int">
+<references refColumn="DPON_OZNAKA" refTable="DNEVNA_PONUDA"/>
+</column>
+<column code="TPS_OZNAKA" group="0" name="TipPS_Oznaka" nullable="false" primary="true" size="2" type="char(2)">
+<references refColumn="TPS_OZNAKA" refTable="DNEVNA_PONUDA"/>
+</column>
+<column code="PS_JIB" group="0" name="JIB" nullable="false" primary="true" size="20" type="varchar(20)">
+<references refColumn="PS_JIB" refTable="DNEVNA_PONUDA"/>
+</column>
+<column code="OJ_OZNAKA" group="0" name="Org_Jed_Oznaka" nullable="false" primary="true" size="" type="int">
+<references refColumn="OJ_OZNAKA" refTable="DNEVNA_PONUDA"/>
+</column>
+<column code="DR_OZNAKA" group="0" name="Drzava_Oznaka" nullable="false" primary="true" size="3" type="char(3)">
+<references refColumn="DR_OZNAKA" refTable="DNEVNA_PONUDA"/>
+</column>
+<column code="TM_OZNAKA" group="0" name="Tip_Menija_Oznaka" nullable="false" primary="true" size="2" type="char(2)">
+<references refColumn="TM_OZNAKA" refTable="DNEVNA_PONUDA"/>
+</column>
+<column code="CIJ_OZNAKA" group="0" name="CIjenovnik_Oznaka" nullable="false" primary="true" size="" type="int">
+<references refColumn="CIJ_OZNAKA" refTable="DNEVNA_PONUDA"/>
+</column>
+<crud>
+<create/>
+<retrieve/>
+<update/>
+<delete/>
+</crud>
+</table>
+<table code="NUDI_ABONENTU_IZ_MENIJA" name="Nudi uslugu iz meni-a">
+<groups>
+<group id="0" name="Ime grupe"/>
+</groups>
+<column code="KUS_OZNAKA" group="0" name="KUS_Oznaka" nullable="false" primary="true" size="3" type="char(3)">
+<references refColumn="KUS_OZNAKA" refTable="KORISTENJE_USLUGE_RESTORANA"/>
+</column>
+<column code="CIJ_OZNAKA" group="0" name="Cijenovnik_Oznaka" nullable="false" primary="true" size="" type="int">
+<references refColumn="CIJ_OZNAKA" refTable="CIJENOVNIK"/>
+</column>
+<column code="TPS_OZNAKA" group="0" name="TipPS_Oznaka" nullable="false" primary="true" size="2" type="char(2)">
+<references refColumn="TPS_OZNAKA" refTable="CIJENOVNIK"/>
+</column>
+<column code="PS_JIB" group="0" name="JIB" nullable="false" primary="true" size="20" type="varchar(20)">
+<references refColumn="PS_JIB" refTable="CIJENOVNIK"/>
+</column>
+<column code="OJ_OZNAKA" group="0" name="Org_Jed_Oznaka" nullable="false" primary="true" size="" type="int">
+<references refColumn="OJ_OZNAKA" refTable="CIJENOVNIK"/>
+</column>
+<column code="DR_OZNAKA" group="0" name="Drzava_Oznaka" nullable="false" primary="true" size="3" type="char(3)">
+<references refColumn="DR_OZNAKA" refTable="CIJENOVNIK"/>
+</column>
+<column code="TM_OZNAKA" group="0" name="Tip_Menija_Oznaka" nullable="false" primary="true" size="2" type="char(2)">
+<references refColumn="TM_OZNAKA" refTable="CIJENOVNIK"/>
+</column>
+<crud>
+<create/>
+<retrieve/>
+<update/>
+<delete/>
+</crud>
+</table>
+<table code="SALA" name="Sala">
+<groups>
+<group id="0" name="Ime grupe"/>
+</groups>
+<column code="SL_OZNAKA" group="0" name="Oznaka" nullable="false" primary="true" size="1" type="char(1)"/>
+<column code="TPS_OZNAKA" group="0" name="TipPS_Oznaka" nullable="false" primary="true" size="2" type="char(2)">
+<references refColumn="TPS_OZNAKA" refTable="ORGANIZACIONA_JEDINICA"/>
+</column>
+<column code="PS_JIB" group="0" name="JIB" nullable="false" primary="true" size="20" type="varchar(20)">
+<references refColumn="PS_JIB" refTable="ORGANIZACIONA_JEDINICA"/>
+</column>
+<column code="OJ_OZNAKA" group="0" name="Org_Jed_Oznaka" nullable="false" primary="true" size="" type="int">
+<references refColumn="OJ_OZNAKA" refTable="ORGANIZACIONA_JEDINICA"/>
+</column>
+<column code="DR_OZNAKA" group="0" name="Drzava_Oznaka" nullable="false" primary="true" size="3" type="char(3)">
+<references refColumn="DR_OZNAKA" refTable="ORGANIZACIONA_JEDINICA"/>
+</column>
+<column code="SL_NAZIV" group="0" name="Naziv" nullable="false" primary="false" size="30" type="varchar(30)"/>
+<column code="SL_BROJ_MJESTA" group="0" name="Broj_Mjesta" nullable="false" primary="false" size="" type="int"/>
+<column code="SL_OPIS" group="0" name="Opis" nullable="true" primary="false" size="300" type="varchar(300)"/>
+<crud>
+<create/>
+<retrieve/>
+<update/>
+<delete/>
+</crud>
+</table>
+<table code="ZAKUPAC" name="Zakupac">
+<groups>
+<group id="0" name="Ime grupe"/>
+</groups>
+<column code="ZPC_OZNAKA" group="0" name="Oznaka" nullable="false" primary="true" size="" type="int"/>
+<column code="ZPC_IME" group="0" name="Ime" nullable="false" primary="false" size="30" type="varchar(30)"/>
+<column code="ZPC_PREZIME" group="0" name="Prezime" nullable="false" primary="false" size="30" type="varchar(30)"/>
+<column code="ZPC_ADRESA" group="0" name="Adresa" nullable="true" primary="false" size="50" type="varchar(50)"/>
+<column code="ZPC_TELEFON" group="0" name="Telefon" nullable="false" primary="false" size="15" type="numeric(15)"/>
+<crud>
+<create/>
+<retrieve/>
+<update/>
+<delete/>
+</crud>
+</table>
+<table code="ZAKUP" name="Zakup">
+<groups>
+<group id="0" name="Ime grupe"/>
+</groups>
+<column code="ZKP_OZNAKA" group="0" name="Oznaka" nullable="false" primary="true" size="" type="int"/>
+<column code="TZ_OZNAKA" group="0" name="Tip_Oznaka" nullable="false" primary="false" size="1" type="char(1)">
+<references refColumn="TZ_OZNAKA" refTable="TIP_ZAKUPA"/>
+</column>
+<column code="SL_OZNAKA" group="0" name="Sala_Oznaka" nullable="false" primary="false" size="1" type="char(1)">
+<references refColumn="SL_OZNAKA" refTable="SALA"/>
+</column>
+<column code="TPS_OZNAKA" group="0" name="TipPS_Oznaka" nullable="false" primary="false" size="2" type="char(2)">
+<references refColumn="TPS_OZNAKA" refTable="SALA"/>
+</column>
+<column code="PS_JIB" group="0" name="JIB" nullable="false" primary="false" size="20" type="varchar(20)">
+<references refColumn="PS_JIB" refTable="SALA"/>
+</column>
+<column code="OJ_OZNAKA" group="0" name="Org_Jed_Oznaka" nullable="false" primary="false" size="" type="int">
+<references refColumn="OJ_OZNAKA" refTable="SALA"/>
+</column>
+<column code="DR_OZNAKA" group="0" name="Drzava_Oznaka" nullable="false" primary="false" size="3" type="char(3)">
+<references refColumn="DR_OZNAKA" refTable="SALA"/>
+</column>
+<column code="ZPC_OZNAKA" group="0" name="Zakupac_Oznaka" nullable="false" primary="false" size="" type="int">
+<references refColumn="ZPC_OZNAKA" refTable="ZAKUPAC"/>
+</column>
+<column code="ZKP_BROJ_ZAKUPLJENIH_MJESTA" group="0" name="Broj_Zakupljenih_Mjesta" nullable="false" primary="false" size="" type="int"/>
+<column code="ZKP_DATUM_POCETKA" group="0" name="Datum_Pocetka" nullable="false" primary="false" size="" type="datetime"/>
+<column code="ZKP_DATUM_ZAVRSETKA" group="0" name="Datum_Zavrsetka" nullable="false" primary="false" size="" type="datetime"/>
+<column code="ZKP_CIJENA" group="0" name="Cijena" nullable="false" primary="false" size="8" type="decimal(8,2)"/>
+<crud>
+<create/>
+<retrieve/>
+<update/>
+<delete/>
+</crud>
+</table>
+<table code="TIP_ZAKUPA" name="Tip zakupa">
+<groups>
+<group id="0" name="Ime grupe"/>
+</groups>
+<column code="TZ_OZNAKA" group="0" name="Oznaka" nullable="false" primary="true" size="1" type="char(1)"/>
+<column code="TZ_RAZLOG_ZAKUPA" group="0" name="Razlog_Zakupa" nullable="false" primary="false" size="100" type="varchar(100)"/>
+<crud>
+<create/>
+<retrieve/>
+<update/>
+<delete/>
+</crud>
+</table>
+<table code="JE_ZADUZEN_ZA" name="Je zaduzen za">
+<groups>
+<group id="0" name="Ime grupe"/>
+</groups>
+<column code="TPS_OZNAKA" group="0" name="TipPS_Oznaka" nullable="false" primary="true" size="2" type="char(2)">
+<references refColumn="TPS_OZNAKA" refTable="RADNIK"/>
+</column>
+<column code="PS_JIB" group="0" name="JIB" nullable="false" primary="true" size="20" type="varchar(20)">
+<references refColumn="PS_JIB" refTable="RADNIK"/>
+</column>
+<column code="OJ_OZNAKA" group="0" name="Org_Jed_Oznaka" nullable="false" primary="true" size="" type="int">
+<references refColumn="OJ_OZNAKA" refTable="RADNIK"/>
+</column>
+<column code="DR_OZNAKA" group="0" name="Drzava_Oznaka" nullable="false" primary="true" size="3" type="char(3)">
+<references refColumn="DR_OZNAKA" refTable="RADNIK"/>
+</column>
+<column code="RAD_OZNAKA" group="0" name="Radnik_Oznaka" nullable="false" primary="true" size="3" type="char(3)">
+<references refColumn="RAD_OZNAKA" refTable="RADNIK"/>
+</column>
+<column code="ZKP_OZNAKA" group="0" name="Zakup_Oznaka" nullable="false" primary="true" size="" type="int">
+<references refColumn="ZKP_OZNAKA" refTable="ZAKUP"/>
+</column>
+<crud>
+<create/>
+<retrieve/>
+<update/>
+<delete/>
+</crud>
+</table>
+<table code="SMJENA" name="Smjena">
+<groups>
+<group id="0" name="Ime grupe"/>
+</groups>
+<column code="SM_OZNAKA" group="0" name="Oznaka" nullable="false" primary="true" size="1" type="char(1)"/>
+<column code="TPS_OZNAKA" group="0" name="TipPS_Oznaka" nullable="false" primary="true" size="2" type="char(2)">
+<references refColumn="TPS_OZNAKA" refTable="ORGANIZACIONA_JEDINICA"/>
+</column>
+<column code="PS_JIB" group="0" name="JIB" nullable="false" primary="true" size="20" type="varchar(20)">
+<references refColumn="PS_JIB" refTable="ORGANIZACIONA_JEDINICA"/>
+</column>
+<column code="OJ_OZNAKA" group="0" name="Org_Jed_Oznaka" nullable="false" primary="true" size="" type="int">
+<references refColumn="OJ_OZNAKA" refTable="ORGANIZACIONA_JEDINICA"/>
+</column>
+<column code="DR_OZNAKA" group="0" name="Drzava_Oznaka" nullable="false" primary="true" size="3" type="char(3)">
+<references refColumn="DR_OZNAKA" refTable="ORGANIZACIONA_JEDINICA"/>
+</column>
+<column code="SM_NAZIV" group="0" name="Naziv" nullable="false" primary="false" size="80" type="varchar(80)"/>
+<column code="SM_OD" group="0" name="Od" nullable="false" primary="false" size="" type="datetime"/>
+<column code="SM_DO" group="0" name="Do" nullable="false" primary="false" size="" type="datetime"/>
+<crud>
+<create/>
+<retrieve/>
+<update/>
+<delete/>
+</crud>
+</table>
+</package>
+<package name="Kadrovska Sluzba">
+<table code="KORISNICKI_NALOG" name="Korisnicki nalog">
+<groups>
+<group id="0" name="Ime grupe"/>
+</groups>
+<column code="NG_KORISNICKO_IME" group="0" name="Korisnicko_Ime" nullable="false" primary="true" size="30" type="varchar(30)"/>
+<column code="TKN_OZNAKA" group="0" name="TipKN_Oznaka" nullable="false" primary="false" size="1" type="char(1)">
+<references refColumn="TKN_OZNAKA" refTable="TIP_KORISNICKOG_NALOGA"/>
+</column>
+<column code="TPS_OZNAKA" group="0" name="TipPS_Oznaka" nullable="false" primary="false" size="2" type="char(2)">
+<references refColumn="TPS_OZNAKA" refTable="RADNIK"/>
+</column>
+<column code="PS_JIB" group="0" name="JIB" nullable="false" primary="false" size="20" type="varchar(20)">
+<references refColumn="PS_JIB" refTable="RADNIK"/>
+</column>
+<column code="OJ_OZNAKA" group="0" name="Org_Jed_Oznaka" nullable="false" primary="false" size="" type="int">
+<references refColumn="OJ_OZNAKA" refTable="RADNIK"/>
+</column>
+<column code="DR_OZNAKA" group="0" name="Drzava_Oznaka" nullable="false" primary="false" size="3" type="char(3)">
+<references refColumn="DR_OZNAKA" refTable="RADNIK"/>
+</column>
+<column code="RAD_OZNAKA" group="0" name="Radnik_Oznaka" nullable="false" primary="false" size="3" type="char(3)">
+<references refColumn="RAD_OZNAKA" refTable="RADNIK"/>
+</column>
+<column code="NG_LOZINKA" group="0" name="Lozinka" nullable="false" primary="false" size="70" type="varchar(70)"/>
+<crud>
+<create/>
+<retrieve/>
+<update/>
+<delete/>
+</crud>
+</table>
+<table code="RADNO_MJESTO" name="Radno mjesto">
+<groups>
+<group id="0" name="Ime grupe"/>
+</groups>
+<column code="RM_OZNAKA" group="0" name="Oznaka" nullable="false" primary="true" size="1" type="char(1)"/>
+<column code="RM_NAZIV" group="0" name="Naziv" nullable="false" primary="false" size="50" type="varchar(50)"/>
+<crud>
+<create/>
+<retrieve/>
+<update/>
+<delete/>
+</crud>
+</table>
+<table code="ISTORIJA_RADNIH_MJESTA" name="Istorija radnih mjesta">
+<groups>
+<group id="0" name="Ime grupe"/>
+</groups>
+<column code="IRM_OZNAKA" group="0" name="Oznaka" nullable="false" primary="true" size="" type="int"/>
+<column code="TPS_OZNAKA" group="0" name="TipPS_Oznaka" nullable="false" primary="true" size="2" type="char(2)">
+<references refColumn="TPS_OZNAKA" refTable="RADNIK"/>
+</column>
+<column code="PS_JIB" group="0" name="JIB" nullable="false" primary="true" size="20" type="varchar(20)">
+<references refColumn="PS_JIB" refTable="RADNIK"/>
+</column>
+<column code="OJ_OZNAKA" group="0" name="Org_Jed_Oznaka" nullable="false" primary="true" size="" type="int">
+<references refColumn="OJ_OZNAKA" refTable="RADNIK"/>
+</column>
+<column code="DR_OZNAKA" group="0" name="Drzava_Oznaka" nullable="false" primary="true" size="3" type="char(3)">
+<references refColumn="DR_OZNAKA" refTable="RADNIK"/>
+</column>
+<column code="RAD_OZNAKA" group="0" name="Radnik_Oznaka" nullable="false" primary="true" size="3" type="char(3)">
+<references refColumn="RAD_OZNAKA" refTable="RADNIK"/>
+</column>
+<column code="RM_OZNAKA" group="0" name="Rad_Mje_Oznaka" nullable="false" primary="false" size="1" type="char(1)">
+<references refColumn="RM_OZNAKA" refTable="RADNO_MJESTO"/>
+</column>
+<column code="IRM_DATUM_POCETKA" group="0" name="Od" nullable="false" primary="false" size="" type="datetime"/>
+<column code="IRM_DATUM_ZAVRSETKA" group="0" name="Do" nullable="true" primary="false" size="" type="datetime"/>
+<column code="IRM_PLATA" group="0" name="Plata" nullable="false" primary="false" size="8" type="decimal(8,2)"/>
+<crud>
+<create/>
+<retrieve/>
+<update/>
+<delete/>
+</crud>
+</table>
+<table code="TIP_KORISNICKOG_NALOGA" name="Tip korisnickog naloga">
+<groups>
+<group id="0" name="Ime grupe"/>
+</groups>
+<column code="TKN_OZNAKA" group="0" name="Oznaka" nullable="false" primary="true" size="1" type="char(1)"/>
+<column code="TKN_NAZIV" group="0" name="Naziv" nullable="false" primary="false" size="25" type="varchar(25)"/>
+<crud>
+<create/>
+<retrieve/>
+<update/>
+<delete/>
+</crud>
+</table>
+</package>
+</database>
